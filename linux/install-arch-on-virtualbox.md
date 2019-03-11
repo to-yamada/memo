@@ -2,7 +2,7 @@
 
 以下を参考に進める。
 
-https://wiki.archlinux.jp/index.php/インストールガイド
+https://wiki.archlinux.org/index.php/Installation_guide
 
 ## インストールの準備
 
@@ -29,6 +29,28 @@ US 配列のままで良いので特に操作なし。
 ```
 
 ディレクトリが存在すればよし。
+
+### インターネットへの接続
+
+Virtualbox の NAT 経由であるため特に設定なし。
+
+Proxy 配下の場合はここで Proxy 設定。
+
+```
+# export http_proxy=http://xxx.xxx.xxx.xxx:xxxx
+# export https_proxy=http://xxx.xxx.xxx.xxx:xxxx
+```
+
+接続確認
+
+```
+# ping archlinux.jp
+```
+
+
+### システムクロックの更新
+
+Virtualbox 環境下であるため設定なし。
 
 ### パーティション
 
@@ -63,28 +85,6 @@ US 配列のままで良いので特に操作なし。
 # mkdir /mnt/boot
 # mount /dev/sda1 /mnt/boot
 ```
-
-### インターネットへの接続
-
-Virtualbox の NAT 経由であるため特に設定なし。
-
-Proxy 配下の場合はここで Proxy 設定。
-
-```
-# export http_proxy=http://xxx.xxx.xxx.xxx:xxxx
-# export https_proxy=http://xxx.xxx.xxx.xxx:xxxx
-```
-
-接続確認
-
-```
-# ping archlinux.jp
-```
-
-
-### システムクロックの更新
-
-Virtualbox 環境下であるため設定なし。
 
 ## インストール
 
