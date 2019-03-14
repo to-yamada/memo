@@ -44,7 +44,7 @@ Proxy 配下の場合はここで Proxy 設定。
 接続確認
 
 ```
-# ping archlinux.jp
+# ping archlinux.org
 ```
 
 
@@ -124,3 +124,17 @@ jaist.ac.jp, tsukuba.wide.ad.jp のものをファイル先頭側に移動させ
 
 Virtualbox 環境下であるため、hwclockは実行しない。
 
+
+### ロケール
+
+`/etc/locale.gen` の `en_US.UTF-8 UTF-8` と `ja_JP.UTF-8 UTF-8` をアンコメントする。
+
+```
+# vi /etc/locale.gen
+```
+
+生成
+
+```
+# locale-gen
+```
