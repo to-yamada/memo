@@ -138,3 +138,22 @@ Virtualbox 環境下であるため、hwclockは実行しない。
 ```
 # locale-gen
 ```
+
+### ネットワーク設定
+
+hostname 設定
+
+```
+# vi /etc/hostname
+arch
+```
+
+```
+# vi /etc/hosts
+127.0.0.1	localhost
+::1       localhost
+127.0.1.1	arch.localdomain arch
+```
+
+Virtualbox 環境下であるためその他の設定は必要なし。
+
