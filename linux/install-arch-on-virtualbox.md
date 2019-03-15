@@ -184,7 +184,7 @@ AMDなら
 # pacman -S amd-ucode
 ```
 
-### ローダーの追加
+#### ローダーの追加
 
 ```
 # blkid -s PARTUUID -o value /dev/sda2 > /boot/loader/entries/arch.conf
