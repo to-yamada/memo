@@ -150,9 +150,9 @@ arch
 
 ```
 # vi /etc/hosts
-127.0.0.1	localhost
+127.0.0.1 localhost
 ::1       localhost
-127.0.1.1	arch.localdomain arch
+127.0.1.1 arch.localdomain arch
 ```
 
 Virtualbox 環境下であるためその他の設定は必要なし。
