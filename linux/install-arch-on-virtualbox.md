@@ -16,19 +16,11 @@ https://wiki.archlinux.org/index.php/Installation_guide
 `archlinux-2019.03.01-x86_64.iso` を起動ディスクにして起動。
 
 `Arch Linux archiso x86_64 UEFI USB` を選択する。
-しばらく黒い画面のままなにも進捗していないように見えるが、1分程度待つとプロンプトが現れるので待つ。
+しばらく黒い画面のままなにも進捗していないように見えるが、1分半程度待つとプロンプトが現れるので待つ。
 
 ### キーボードレイアウト
 
 US 配列のままで良いので特に操作なし。
-
-### 起動モードの確認
-
-```
-# ls /sys/firmware/efi/efivars
-```
-
-ディレクトリが存在すればよし。
 
 ### インターネットへの接続
 
@@ -41,26 +33,11 @@ Proxy 配下の場合はここで Proxy 設定。
 # export https_proxy=http://xxx.xxx.xxx.xxx:xxxx
 ```
 
-接続確認
-
-```
-# ping archlinux.org
-```
-
-
 ### システムクロックの更新
 
 Virtualbox 環境下であるため設定なし。
 
-### パーティション
-
-デバイスの確認
-
-```
-# fdisk -l
-```
-
-パーティションの作成
+### パーティションの作成
 
 ```
 # parted /dev/sda
@@ -68,6 +45,7 @@ Virtualbox 環境下であるため設定なし。
 (parted) mkpart primary fat32 1MiB 551MiB
 (parted) set 1 esp on
 (parted) mkpart primary ext4 551MiB 100%
+(parted) print
 (parted) quit
 ```
 
@@ -90,11 +68,7 @@ Virtualbox 環境下であるため設定なし。
 
 ### ミラーの選択
 
-jaist.ac.jp, tsukuba.wide.ad.jp のものをファイル先頭側に移動させる。
-
-```
-# vim /etc/pacman.d/mirrorlist
-```
+`/etc/pacman.d/mirrorlist` を編集し、jaist.ac.jp, tsukuba.wide.ad.jp のものをファイル先頭側に移動させる。
 
 ### ベースシステムのインストール
 
@@ -127,14 +101,9 @@ Virtualbox 環境下であるため、hwclockは実行しない。
 
 ### ロケール
 
-`/etc/locale.gen` の `en_US.UTF-8 UTF-8` と `ja_JP.UTF-8 UTF-8` をアンコメントする。
-
-```
-# vi /etc/locale.gen
-```
+`/etc/locale.gen` を編集し、`en_US.UTF-8 UTF-8` と `ja_JP.UTF-8 UTF-8` をアンコメントする。
 
 生成
-
 ```
 # locale-gen
 ```
@@ -144,19 +113,10 @@ Virtualbox 環境下であるため、hwclockは実行しない。
 hostname 設定
 
 ```
-# vi /etc/hostname
+# echo arch > /etc/hostname
 ```
 
-以下の内容を書き込む。
-```
-arch
-```
-
-```
-# vi /etc/hosts
-```
-
-以下の内容を書き込む。
+`/etc/hosts` を編集する。内容は以下。
 ```
 127.0.0.1 localhost
 ::1       localhost
@@ -177,19 +137,20 @@ Virtualbox 環境下であるためその他の設定は必要なし。
 
 ### ブートローダー
 
+#### systemd-boot のインストール
+
 ```
 # bootctl --path=/boot install
 # bootctl update
 ```
 
-bootctl update の自動化
+#### bootctl update の自動化
 
 ```
 # mkdir /etc/pacman.d/hooks
-# vi /etc/pacman.d/hooks/systemd-boot.hook
 ```
 
-以下の内容を書き込む。
+`/etc/pacman.d/hooks/systemd-boot.hook` を編集する。内容は以下。
 ```
 [Trigger]
 Type = Package
@@ -202,19 +163,15 @@ When = PostTransaction
 Exec = /usr/bin/bootctl update
 ```
 
-
-```
-# vi /boot/loader/loader.conf
-```
-
-以下の内容を書き込む。
+#### loaderの設定
+`/boot/loader/loader.conf` を編集する。内容は以下。
 ```
 default arch
 timeout 4
 editor  no
 ```
 
-マイクロコード取得
+#### マイクロコード取得
 
 CPUがIntelなら
 
@@ -227,17 +184,29 @@ AMDなら
 # pacman -S amd-ucode
 ```
 
-ローダーの追加
+### ローダーの追加
+
 ```
 # blkid -s PARTUUID -o value /dev/sda2 > /boot/loader/entries/arch.conf
-# vi /boot/loader/entries/arch.conf
 ```
+とし、PARTUUIDを書き込む。
 
-以下の内容に更新する。
+PARTUUIDが書き込まれた `/boot/loader/entries/arch.conf` を編集する。内容は以下。
+
+Intel
 ```
 title   Arch Linux
 linux   /vmlinuz-linux
 initrd  /intel-ucode.img
+initrd  /initramfs-linux.img
+options root=PARTUUID=**** rw
+```
+
+AMD
+```
+title   Arch Linux
+linux   /vmlinuz-linux
+initrd  /amd-ucode.img
 initrd  /initramfs-linux.img
 options root=PARTUUID=**** rw
 ```
