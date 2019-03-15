@@ -145,11 +145,19 @@ hostname 設定
 
 ```
 # vi /etc/hostname
+```
+
+以下の内容を書き込む。
+```
 arch
 ```
 
 ```
 # vi /etc/hosts
+```
+
+以下の内容を書き込む。
+```
 127.0.0.1 localhost
 ::1       localhost
 127.0.1.1 arch.localdomain arch
@@ -157,3 +165,89 @@ arch
 
 Virtualbox 環境下であるためその他の設定は必要なし。
 
+### Initramfs
+
+設定の必要なし
+
+### Root パスワード
+
+```
+# passwd
+```
+
+### ブートローダー
+
+```
+# bootctl --path=/boot install
+# bootctl update
+```
+
+bootctl update の自動化
+
+```
+# mkdir /etc/pacman.d/hooks
+# vi /etc/pacman.d/hooks/systemd-boot.hook
+```
+
+以下の内容を書き込む。
+```
+[Trigger]
+Type = Package
+Operation = Upgrade
+Target = systemd
+
+[Action]
+Description = Updating systemd-boot
+When = PostTransaction
+Exec = /usr/bin/bootctl update
+```
+
+
+```
+# vi /boot/loader/loader.conf
+```
+
+以下の内容を書き込む。
+```
+default arch
+timeout 4
+editor  no
+```
+
+マイクロコード取得
+
+CPUがIntelなら
+
+```
+# pacman -S intel-ucode
+```
+
+AMDなら
+```
+# pacman -S amd-ucode
+```
+
+ローダーの追加
+```
+# blkid -s PARTUUID -o value /dev/sda2 > /boot/loader/entries/arch.conf
+# vi /boot/loader/entries/arch.conf
+```
+
+以下の内容に更新する。
+```
+title   Arch Linux
+linux   /vmlinuz-linux
+initrd  /intel-ucode.img
+initrd  /initramfs-linux.img
+options root=PARTUUID=**** rw
+```
+
+### 再起動
+
+```
+# exit
+# umount -R /mnt
+# shutdown -h now
+```
+
+シャットダウン後、ストレージにある iso を除去しておく。
