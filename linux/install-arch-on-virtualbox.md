@@ -173,16 +173,7 @@ editor  no
 
 #### マイクロコード取得
 
-CPUがIntelなら
-
-```
-# pacman -S intel-ucode
-```
-
-AMDなら
-```
-# pacman -S amd-ucode
-```
+Virtualbox 環境下であるため不要。
 
 #### ローダーの追加
 
@@ -193,20 +184,9 @@ AMDなら
 
 PARTUUIDが書き込まれた `/boot/loader/entries/arch.conf` を編集する。内容は以下。
 
-Intel
 ```
 title   Arch Linux
 linux   /vmlinuz-linux
-initrd  /intel-ucode.img
-initrd  /initramfs-linux.img
-options root=PARTUUID=**** rw
-```
-
-AMD
-```
-title   Arch Linux
-linux   /vmlinuz-linux
-initrd  /amd-ucode.img
 initrd  /initramfs-linux.img
 options root=PARTUUID=**** rw
 ```
