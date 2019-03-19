@@ -167,7 +167,7 @@ Exec = /usr/bin/bootctl update
 `/boot/loader/loader.conf` を編集する。内容は以下。
 ```
 default arch
-timeout 4
+timeout 2
 editor  no
 ```
 
