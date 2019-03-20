@@ -203,9 +203,31 @@ options root=PARTUUID=**** rw
 
 ## インストール後の設定
 
+### Swap ファイルの作成
+
+今のところ作成しない。
+
 ### ネットワークの有効化
 
-### Swap ファイルの作成
+`/etc/systemd/network/MyDhcp.network` を編集する。内容は以下。
+
+```
+[Match]
+Name=en*
+
+[Network]
+DHCP=ipv4
+```
+
+以下のコマンドを実行。
+
+```
+# systemctl start systemd-networkd
+# systemctl enable systemd-networkd
+# systemctl start systemd-resolved
+# systemctl enable systemd-resolved
+# ln -sf /run/systemd/resolve/resolv.conf /etc/resolv.conf
+```
 
 ### 一般ユーザーの作成
 
