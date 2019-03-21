@@ -231,3 +231,9 @@ DHCP=ipv4
 
 ### 一般ユーザーの作成
 
+archie は使用するユーザー名に置き換え
+
+```
+# useradd -m -G wheel archie
+# passwd archie
+```
