@@ -136,5 +136,5 @@ sudo -E coreos-install -d /dev/sda -C stable -i ~/ignition.json
 sudo の -E オプションは上で http_proxy を設定しており、これを root からも参照するために必要。
 coreos-install の -d オプションはインストール先を指定する。
 coreos-install の -C オプションは Container Linux の Channel を指定する。
-stable, beta, alpha が指定できるが、安定していたほうがよいので stable を指定している。
+stable, beta, alpha が指定できる。
 
