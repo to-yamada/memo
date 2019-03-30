@@ -138,3 +138,5 @@ coreos-install の -d オプションはインストール先を指定する。
 coreos-install の -C オプションは Container Linux の Channel を指定する。
 stable, beta, alpha が指定できる。
 
+### docker-compose のインストール
+
