@@ -140,3 +140,13 @@ stable, beta, alpha が指定できる。
 
 ### docker-compose のインストール
 
+参考元: https://qiita.com/Ahijo0523/items/1d4055de7a74decd37fb
+
+```
+COMPOSE_VERSION=$(curl -s https://api.github.com/repos/docker/compose/releases/latest | grep 'tag_name' | cut -d\" -f4)
+OUTPUT_PATH="/opt/bin"
+sudo mkdir -p ${OUTPUT_PATH}
+sudo curl -L "https://github.com/docker/compose/releases/download/${COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)" -o ${OUTPUT_PATH}/docker-compose
+sudo chmod +x ${OUTPUT_PATH}/docker-compose
+docker-compose -v
+```
