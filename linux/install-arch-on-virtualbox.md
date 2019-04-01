@@ -237,3 +237,6 @@ archie は使用するユーザー名に置き換え
 # useradd -m -G wheel archie
 # passwd archie
 ```
+
+### ADD PACKAGES
+
