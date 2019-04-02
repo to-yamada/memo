@@ -73,7 +73,7 @@ Virtualbox 環境下であるため設定なし。
 ### ベースシステムのインストール
 
 ```
-# pacstrap /mnt base
+# pacstrap /mnt base base-devel vim git
 ```
 
 ## システムの設定
@@ -237,6 +237,3 @@ archie は使用するユーザー名に置き換え
 # useradd -m -G wheel archie
 # passwd archie
 ```
-
-### ADD PACKAGES
-
