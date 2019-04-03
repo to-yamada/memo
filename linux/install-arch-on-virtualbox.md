@@ -73,7 +73,7 @@ Virtualbox 環境下であるため設定なし。
 ### ベースシステムのインストール
 
 ```
-# pacstrap /mnt base base-devel vim git
+# pacstrap /mnt base base-devel
 ```
 
 ## システムの設定
@@ -237,3 +237,28 @@ archie は使用するユーザー名に置き換え
 # useradd -m -G wheel archie
 # passwd archie
 ```
+
+### sshd 設定
+
+インストール
+
+```
+# pacman -S openssh
+```
+
+`/etc/ssh/sshd_config` を編集する。
+
+```
+AllowUsers    archie
+```
+を追加。 `archie` は使用するユーザー名に置き換え。
+
+また `PermitRootLogin` の設定値を `prohibit-password` を `no` に書き換える。
+
+開始・有効化
+
+```
+# systemctl start sshd.service
+# systemctl enable sshd.service
+```
+
