@@ -249,6 +249,19 @@ archie は使用するユーザー名に置き換え
 # passwd archie
 ```
 
+以下を実行し、wheelグループでsudoする権限を付加。
+(%wheel の行をアンコメント。NOPASSWDとするかはお好みで)
+
+```
+# visudo
+```
+
+以下を実行し、rootログインは無効化しておく
+
+```
+# passwd -l root
+```
+
 ### sshd 設定
 
 Proxy 配下の場合はここで Proxy 設定。
