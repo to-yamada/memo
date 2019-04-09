@@ -18,6 +18,17 @@ https://wiki.archlinux.org/index.php/Installation_guide
 `Arch Linux archiso x86_64 UEFI USB` を選択する。
 しばらく黒い画面のままなにも進捗していないように見えるが、1分半程度待つとプロンプトが現れるので待つ。
 
+
+### ssh
+ssh 経由でインストールするなら以下を実行
+
+```
+# systemctl start sshd
+# passwd
+```
+
+直接コンソールからインストールするならば飛ばす。
+
 ### キーボードレイアウト
 
 US 配列のままで良いので特に操作なし。
@@ -239,6 +250,13 @@ archie は使用するユーザー名に置き換え
 ```
 
 ### sshd 設定
+
+Proxy 配下の場合はここで Proxy 設定。
+
+```
+# export http_proxy=http://xxx.xxx.xxx.xxx:xxxx
+# export https_proxy=http://xxx.xxx.xxx.xxx:xxxx
+```
 
 インストール
 
