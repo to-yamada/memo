@@ -136,6 +136,17 @@ hostname 設定
 
 Virtualbox 環境下であるためその他の設定は必要なし。
 
+### proxy 設定
+
+以下の内容の `/etc/profile.d/proxy.sh` を作成する。
+
+```
+#!/bin/sh
+
+export http_proxy=http://192.168.220.210:8080
+export https_proxy=http://192.168.220.210:8080
+```
+
 ### Initramfs
 
 設定の必要なし
@@ -250,11 +261,14 @@ archie は使用するユーザー名に置き換え
 ```
 
 以下を実行し、wheelグループでsudoする権限を付加。
-(%wheel の行をアンコメント。NOPASSWDとするかはお好みで)
 
 ```
 # visudo
 ```
+
+* %wheel の行をアンコメント。NOPASSWDとするかはお好みで
+* `Defaults env_keep += "LANG LANGUAGE LINGUAS LC_* _XKB_CHARSET"`の行をアンコメント
+* 以下の行を追加。 `Defaults env_keep += "http_proxy https_proxy ftp_proxy"`
 
 以下を実行し、rootログインは無効化しておく
 
@@ -263,13 +277,6 @@ archie は使用するユーザー名に置き換え
 ```
 
 ### sshd 設定
-
-Proxy 配下の場合はここで Proxy 設定。
-
-```
-# export http_proxy=http://xxx.xxx.xxx.xxx:xxxx
-# export https_proxy=http://xxx.xxx.xxx.xxx:xxxx
-```
 
 インストール
 
