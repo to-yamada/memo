@@ -299,4 +299,11 @@ AllowUsers    archie
 # systemctl start sshd.service
 # systemctl enable sshd.service
 ```
+### ログアウト
+
+以降はログアウトし、一般ユーザーから ssh して実行する。
+
+### pacman 色付け
+
+`/etc/pacman.conf` を編集し、 `Color` の行をアンコメントする。
 
