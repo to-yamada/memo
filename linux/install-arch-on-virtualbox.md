@@ -299,11 +299,20 @@ AllowUsers    archie
 # systemctl start sshd.service
 # systemctl enable sshd.service
 ```
+### pacman 色付け
+
+`/etc/pacman.conf` を編集し、 `Color` の行をアンコメントする。
+
+### パッケージの追加
+
+```
+# pacman -Syu
+# pacman -S git neovim ctags ripgrep zsh
+```
+
 ### ログアウト
 
 以降はログアウトし、一般ユーザーから ssh して実行する。
 
-### pacman 色付け
-
-`/etc/pacman.conf` を編集し、 `Color` の行をアンコメントする。
+### dotfiles環境作成
 
