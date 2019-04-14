@@ -316,3 +316,8 @@ AllowUsers    archie
 
 ### dotfiles環境作成
 
+```
+$ git clone https://github.com/to-yamada/dotfiles.git
+$ cd dotfiles
+$ sh link.sh
+```
