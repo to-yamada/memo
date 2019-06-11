@@ -143,8 +143,8 @@ Virtualbox 環境下であるためその他の設定は必要なし。
 ```
 #!/bin/sh
 
-export http_proxy=http://192.168.220.210:8080
-export https_proxy=http://192.168.220.210:8080
+export http_proxy=http://xxx.xxx.xxx.xxx:xxxx
+export https_proxy=http://xxx.xxx.xxx.xxx:xxxx
 ```
 
 ### Initramfs
