@@ -84,7 +84,7 @@ Virtualbox 環境下であるため設定なし。
 ### ベースシステムのインストール
 
 ```
-# pacstrap /mnt base base-devel
+# pacstrap /mnt base base-devel neovim
 ```
 
 ## システムの設定
@@ -213,16 +213,6 @@ initrd  /initramfs-linux.img
 options root=PARTUUID=**** rw
 ```
 
-### 再起動
-
-```
-# exit
-# umount -R /mnt
-# shutdown -h now
-```
-
-シャットダウン後、ストレージにある iso を除去しておく。
-
 ## インストール後の設定
 
 ### Swap ファイルの作成
@@ -307,12 +297,21 @@ AllowUsers    archie
 
 ```
 # pacman -Syu
-# pacman -S git neovim ctags ripgrep zsh
+# pacman -S git ctags ripgrep
 ```
 
-### ログアウト
 
-以降はログアウトし、一般ユーザーから ssh して実行する。
+### 再起動
+
+```
+# exit
+# umount -R /mnt
+# shutdown -h now
+```
+
+シャットダウン後、ストレージにある iso を除去しておく。
+
+以降は一般ユーザーから ssh して実行する。
 
 ### dotfiles環境作成
 
