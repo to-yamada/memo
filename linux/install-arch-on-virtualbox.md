@@ -85,7 +85,7 @@ Virtualbox 環境下であるため設定なし。
 ### ベースシステム, パッケージのインストール
 
 ```
-# pacstrap /mnt base linux base-devel openssh neovim
+# pacstrap /mnt base linux base-devel openssh neovim zsh
 ```
 
 ## システムの設定
@@ -240,7 +240,7 @@ sytemctl start などは再起動後に実行する。
 archie は使用するユーザー名に置き換え
 
 ```
-# useradd -m -G wheel archie
+# useradd -m -G wheel -s /bin/zsh archie
 # passwd archie
 ```
 
@@ -316,7 +316,7 @@ sshd有効化
 
 ```
 # pacman -Syu
-# pacman -S  python-pynvim git ctags ripgrep
+# pacman -S python-pynvim git ctags ripgrep
 ```
 
 ### dotfiles環境作成
