@@ -10,6 +10,7 @@ https://wiki.archlinux.org/index.php/Installation_guide
 
 * 64GB の可変ボリュームを作っておく。特にRAID構成などは取らない。
 * EFIを有効にチェック入れる
+* ポートフォワーディングでsshを受けられるようにしておく
 
 ### 起動
 
@@ -20,14 +21,14 @@ https://wiki.archlinux.org/index.php/Installation_guide
 
 
 ### ssh
-ssh 経由でインストールするなら以下を実行
+ssh 経由でインストールするため以下を実行
 
 ```
 # systemctl start sshd
 # passwd
 ```
 
-直接コンソールからインストールするならば飛ばす。
+以下はssh経由でログインして実行。
 
 ### キーボードレイアウト
 
@@ -81,10 +82,10 @@ Virtualbox 環境下であるため設定なし。
 
 `/etc/pacman.d/mirrorlist` を編集し、jaist.ac.jp, tsukuba.wide.ad.jp のものをファイル先頭側に移動させる。
 
-### ベースシステムのインストール
+### ベースシステム, パッケージのインストール
 
 ```
-# pacstrap /mnt base base-devel neovim
+# pacstrap /mnt base linux base-devel openssh neovim
 ```
 
 ## システムの設定
@@ -104,7 +105,7 @@ Virtualbox 環境下であるため設定なし。
 ### タイムゾーン
 
 ```
-# ln -sf /usr/share/zoninfo/Asia/Tokyo /etc/localtime
+# ln -sf /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 ```
 
 Virtualbox 環境下であるため、hwclockは実行しない。
@@ -145,6 +146,7 @@ Virtualbox 環境下であるためその他の設定は必要なし。
 
 export http_proxy=http://xxx.xxx.xxx.xxx:xxxx
 export https_proxy=http://xxx.xxx.xxx.xxx:xxxx
+export ftp_proxy=http://xxx.xxx.xxx.xxx:xxxx
 ```
 
 ### Initramfs
@@ -231,15 +233,7 @@ Name=en*
 DHCP=ipv4
 ```
 
-以下のコマンドを実行。
-
-```
-# systemctl start systemd-networkd
-# systemctl enable systemd-networkd
-# systemctl start systemd-resolved
-# systemctl enable systemd-resolved
-# ln -sf /run/systemd/resolve/resolv.conf /etc/resolv.conf
-```
+sytemctl start などは再起動後に実行する。
 
 ### 一般ユーザーの作成
 
@@ -253,7 +247,7 @@ archie は使用するユーザー名に置き換え
 以下を実行し、wheelグループでsudoする権限を付加。
 
 ```
-# visudo
+# EDITOR=nvim visudo
 ```
 
 * %wheel の行をアンコメント。NOPASSWDとするかはお好みで
@@ -268,12 +262,6 @@ archie は使用するユーザー名に置き換え
 
 ### sshd 設定
 
-インストール
-
-```
-# pacman -S openssh
-```
-
 `/etc/ssh/sshd_config` を編集する。
 
 ```
@@ -283,22 +271,11 @@ AllowUsers    archie
 
 また `PermitRootLogin` の設定値を `prohibit-password` を `no` に書き換える。
 
-開始・有効化
+開始・有効化は再起動後に実行する。
 
-```
-# systemctl start sshd.service
-# systemctl enable sshd.service
-```
 ### pacman 色付け
 
 `/etc/pacman.conf` を編集し、 `Color` の行をアンコメントする。
-
-### パッケージの追加
-
-```
-# pacman -Syu
-# pacman -S git ctags ripgrep
-```
 
 
 ### 再起動
@@ -310,8 +287,37 @@ AllowUsers    archie
 ```
 
 シャットダウン後、ストレージにある iso を除去しておく。
+ネットワーク、sshdを有効化していないため、VirtualBoxからは
+(ヘッドレスやでタッチモードではなく)通常起動で起動する。
+起動後一般ユーザーでログインし、以下を実行。
+
+
+ネットワーク有効化
+
+```
+# sudo systemctl start systemd-networkd
+# sudo systemctl enable systemd-networkd
+# sudo systemctl start systemd-resolved
+# sudo systemctl enable systemd-resolved
+# sudo ln -sf /run/systemd/resolve/resolv.conf /etc/resolv.conf
+```
+
+sshd有効化
+
+```
+# sudo systemctl start sshd.service
+# sudo systemctl enable sshd.service
+```
+
 
 以降は一般ユーザーから ssh して実行する。
+
+### パッケージの追加
+
+```
+# pacman -Syu
+# pacman -S  python-pynvim git ctags ripgrep
+```
 
 ### dotfiles環境作成
 
