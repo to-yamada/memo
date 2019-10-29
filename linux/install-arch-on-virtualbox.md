@@ -315,8 +315,8 @@ sshd有効化
 ### パッケージの追加
 
 ```
-# pacman -Syu
-# pacman -S python-pynvim git ctags ripgrep
+# sudo pacman -Syu
+# sudo pacman -S python-pynvim git ctags ripgrep
 ```
 
 ### dotfiles環境作成
