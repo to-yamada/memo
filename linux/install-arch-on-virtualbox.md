@@ -14,7 +14,7 @@ https://wiki.archlinux.org/index.php/Installation_guide
 
 ### 起動
 
-`archlinux-2019.03.01-x86_64.iso` を起動ディスクにして起動。
+`archlinux-2020.01.01-x86_64.iso` を起動ディスクにして起動。
 
 `Arch Linux archiso x86_64 UEFI USB` を選択する。
 しばらく黒い画面のままなにも進捗していないように見えるが、1分半程度待つとプロンプトが現れるので待つ。
