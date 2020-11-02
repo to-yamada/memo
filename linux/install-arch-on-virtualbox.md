@@ -14,11 +14,7 @@ https://wiki.archlinux.org/index.php/Installation_guide
 
 ### 起動
 
-`archlinux-2020.01.01-x86_64.iso` を起動ディスクにして起動。
-
-`Arch Linux archiso x86_64 UEFI USB` を選択する。
-しばらく黒い画面のままなにも進捗していないように見えるが、1分半程度待つとプロンプトが現れるので待つ。
-
+`archlinux-2020.11.01-x86_64.iso` を起動ディスクにして起動。
 
 ### ssh
 ssh 経由でインストールするため以下を実行
@@ -78,14 +74,10 @@ Virtualbox 環境下であるため設定なし。
 
 ## インストール
 
-### ミラーの選択
-
-`/etc/pacman.d/mirrorlist` を編集し、jaist.ac.jp, tsukuba.wide.ad.jp のものをファイル先頭側に移動させる。
-
 ### ベースシステム, パッケージのインストール
 
 ```
-# pacstrap /mnt base linux base-devel openssh neovim zsh
+# pacstrap /mnt base linux base-devel openssh vim zsh
 ```
 
 ## システムの設定
@@ -247,7 +239,7 @@ archie は使用するユーザー名に置き換え
 以下を実行し、wheelグループでsudoする権限を付加。
 
 ```
-# EDITOR=nvim visudo
+# EDITOR=vim visudo
 ```
 
 * %wheel の行をアンコメント。NOPASSWDとするかはお好みで
@@ -315,14 +307,16 @@ sshd有効化
 ### パッケージの追加
 
 ```
-# sudo pacman -Syu
-# sudo pacman -S python-pynvim git ctags ripgrep
+% sudo pacman -Syu
+% sudo pacman -S git ctags ripgrep go
 ```
 
 ### dotfiles環境作成
 
 ```
-$ git clone https://github.com/to-yamada/dotfiles.git
-$ cd dotfiles
-$ sh link.sh
+% git clone https://github.com/to-yamada/dotfiles.git
+% cd dotfiles
+% sh link.sh
+% go get github.com/vim-volt/volt
+% volt get -l
 ```
