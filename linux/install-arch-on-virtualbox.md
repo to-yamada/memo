@@ -308,7 +308,7 @@ sshd有効化
 
 ```
 % sudo pacman -Syu
-% sudo pacman -S git ctags ripgrep go subversion
+% sudo pacman -S git ctags ripgrep go subversion perl-term-readkey
 ```
 
 ### dotfiles環境作成
