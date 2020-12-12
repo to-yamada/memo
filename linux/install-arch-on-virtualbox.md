@@ -77,7 +77,7 @@ Virtualbox 環境下であるため設定なし。
 ### ベースシステム, パッケージのインストール
 
 ```
-# pacstrap /mnt base linux-lts linux-lts-headers base-devel openssh vim zsh
+# pacstrap /mnt base linux base-devel openssh vim zsh
 ```
 
 ## システムの設定
@@ -201,9 +201,9 @@ Virtualbox 環境下であるため不要。
 PARTUUIDが書き込まれた `/boot/loader/entries/arch.conf` を編集する。内容は以下。
 
 ```
-title Arch Linux - LTS Kernel
-linux /vmlinuz-linux-lts
-initrd /initramfs-linux-lts.img
+title Arch Linux
+linux /vmlinuz-linux
+initrd /initramfs-linux.img
 options root=PARTUUID=**** rw
 ```
 
